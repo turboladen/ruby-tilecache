@@ -1,0 +1,27 @@
+Metrics/LineLength:
+  Max: 120
+
+Style/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
+Style/Documentation:
+  Enabled: false
+
+Style/DotPosition:
+  EnforcedStyle: trailing
+
+Style/FormatString:
+  EnforcedStyle: percent
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%i': '[]'
+    '%w': '[]'
+    '%W': '[]'
+
+Style/SymbolArray:
+  Enabled: true
+
+AllCops:
+  Include:
+    - Gemfile

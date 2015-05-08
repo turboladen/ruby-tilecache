@@ -9,11 +9,11 @@ module TileCache
     class << self
       def get_handler_class(layer_type)
         class_name = layer_type.sub(/Layer$/, '')
-        
+
         if Layers.const_defined?(class_name)
           Layers.const_get(class_name)
         else
-          raise InvalidConfiguration, "Invalid layer type attribute: #{type}"
+          fail InvalidConfiguration, "Invalid layer type attribute: #{type}"
         end
       end
     end
