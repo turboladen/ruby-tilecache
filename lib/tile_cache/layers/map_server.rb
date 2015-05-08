@@ -4,14 +4,15 @@ module TileCache
   module Layers    
     class MapServer < TileCache::MetaLayer
       include Mapscript
-      
-      VALID_ATTRIBUTES = %w{ maxresolution levels extension metatile metabuffer bbox resolutions width height }
+
+      VALID_ATTRIBUTES = %w{ maxresolution levels extension metatile metabuffer bbox resolutions width height srs }
       REQUIRED_ATTRIBUTES = %w{ mapfile layers }
       
       attr_reader :mapfile
       
       def initialize(name, config)
         @mapfile = config[:mapfile]
+        @srs = config[:srs]
         super
       end
       
