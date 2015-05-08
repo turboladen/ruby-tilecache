@@ -28,7 +28,7 @@ module TileCache
       
     protected
       def map
-        @map ||= MapObj.new(File.join(RAILS_ROOT, @mapfile))
+        @map ||= MapObj.new(File.join(Rails.root, @mapfile))
       end
       
       def set_metabuffer
