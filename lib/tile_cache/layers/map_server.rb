@@ -12,7 +12,6 @@ module TileCache
 
       def initialize(name, config)
         @mapfile = config[:mapfile]
-        @srs = config[:srs]
         super
       end
 
@@ -47,7 +46,7 @@ module TileCache
         req.setParameter('bbox', tile.bounds.to_s)
         req.setParameter('width', tile.size[0].to_s)
         req.setParameter('height', tile.size[1].to_s)
-        req.setParameter('srs', @srs)
+        req.setParameter('srs', tile.layer.srs)
         req.setParameter('format', format)
         req.setParameter('layers', @layers)
         req.setParameter('request', 'GetMap')
