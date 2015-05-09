@@ -38,7 +38,7 @@ module TileCache
       def set_metabuffer
         # Don't override the mapfile settings!
         map.getMetaData('labelcache_map_edge_buffer')
-      rescue
+      rescue Mapscript::MapserverError
         buffer = -@metabuffer.max - 5
         map.setMetaData('labelcache_map_edge_buffer', buffer.to_s)
       end
