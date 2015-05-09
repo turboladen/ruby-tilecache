@@ -41,8 +41,8 @@ module TileCache
     # Fetch or render tile
     def render(tile)
       unless TileCache.cache.get(tile)
-        data = render_tile(tile)
-        cache.store(tile, data)
+        data = tile.layer.render_tile(tile)
+        TileCache.cache.store(tile, data)
       end
 
       tile
