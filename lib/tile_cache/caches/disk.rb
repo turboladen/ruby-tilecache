@@ -10,13 +10,14 @@ module TileCache
       end
 
       def get(tile)
-        # If we are in debug mode, always simulate cache misses to force rewriting the cache every time
+        # If we are in debug mode, always simulate cache misses to force
+        # rewriting the cache every time
         return false if @debug
 
         file = key_for_tile(tile)
 
         if File.exist?(file)
-          File.open(file, File::RDONLY) { |f| tile.data = f.read }
+          tile.data = File.read(file)
           return true
         else
           return false
@@ -25,13 +26,16 @@ module TileCache
 
       def store(tile, data = nil)
         tile.data = data if data
-        fail CacheError, 'Called #store! with no data argument and no data associated with the tile.' unless tile.data
+
+        unless tile.data
+          fail CacheError, 'Called #store with no data argument and no data associated with the tile.'
+        end
 
         # Create the full path to the cache file
         file = key_for_tile(tile)
         FileUtils.mkdir_p(File.dirname(file))
 
-        File.open(file, (File::WRONLY | File::CREAT)) do |f|
+        File.open(file, 'wb') do |f|
           f.sync = true
           f.write(tile.data)
         end
