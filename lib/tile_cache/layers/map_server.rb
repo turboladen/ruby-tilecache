@@ -15,6 +15,7 @@ module TileCache
         super
       end
 
+      # @return [String] Binary string that is the tile/image data.
       def render_tile(tile)
         set_metabuffer if @metabuffer
         req = build_request(tile)
@@ -22,15 +23,17 @@ module TileCache
         msIO_installStdoutToBuffer
         map.OWSDispatch(req)
         msIO_stripStdoutBufferContentType
-        msIO_getStdoutBufferBytes
+        map_image = msIO_getStdoutBufferBytes
         msIO_resetHandlers
-      end
 
-      protected
+        map_image
+      end
 
       def map
         @map ||= MapObj.new(File.join(Rails.root, @mapfile))
       end
+
+      protected
 
       def set_metabuffer
         # Don't override the mapfile settings!

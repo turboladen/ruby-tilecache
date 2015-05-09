@@ -7,11 +7,15 @@ module TileCache
         @params = parse_request(params)
       end
 
-      def get_map
+      def build_map
         bbox = Bounds.parse_string(@params[:bbox])
         layer = TileCache.layers[@params[:layers]]
         # TODO: Move into config parser
         fail LayerNotFound, "Can't find layer '#{@params[:layers]}' in configuration" unless layer
+
+        layer.env_uri = @env_uri if @env_uri
+        yield layer.map if block_given?
+
         tile = layer.get_tile(bbox)
 
         layer.render(tile)
