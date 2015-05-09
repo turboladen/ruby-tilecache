@@ -1,12 +1,13 @@
+require_relative 'base'
+
 module TileCache
   module Caches
-    class Disk
+    class Disk < Base
       REQUIRED_ATTRIBUTES = %w[root]
-      VALID_ATTRIBUTES = %w[debug]
 
       def initialize(settings)
+        super(settings)
         @root = settings[:root]
-        @debug = settings[:debug]
       end
 
       def get(tile)
