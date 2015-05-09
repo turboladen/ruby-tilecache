@@ -3,8 +3,13 @@ module TileCache
     class WMS
       FIELDS = %( bbox srs width height format layers styles )
 
-      def initialize(params)
+      # @param params [Hash] Rack::Request-parsed URL params
+      # @param env_uri [String] env['REQUEST_URI'] from a Rack request. A
+      #   temporary patch to get all request params into Mapscript instead of
+      #   relying on ruby-tilecache's OWSRequest-param-setting.
+      def initialize(params, env_uri = nil)
         @params = parse_request(params)
+        @env_uri = env_uri
       end
 
       def build_map

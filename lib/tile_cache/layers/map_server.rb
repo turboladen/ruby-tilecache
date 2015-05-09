@@ -9,6 +9,7 @@ module TileCache
       REQUIRED_ATTRIBUTES = %w[mapfile layers]
 
       attr_reader :mapfile
+      attr_accessor :env_uri
 
       def initialize(name, config)
         @mapfile = config[:mapfile]
@@ -45,6 +46,7 @@ module TileCache
 
       def build_request(tile)
         req = OWSRequest.new
+        req.loadParamsFromURL(@env_uri) if @env_uri
 
         req.setParameter('bbox', tile.bounds.to_s)
         req.setParameter('width', tile.size[0].to_s)

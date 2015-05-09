@@ -11,6 +11,7 @@ module TileCache
       @data = nil
     end
 
+    # @return [TileCache::Bounds]
     def bounds
       res = @layer.resolutions[@z]
       minx = @layer.bbox.minx + (res * @x * @layer.size[0])
